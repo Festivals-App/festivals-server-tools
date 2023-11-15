@@ -21,7 +21,7 @@ The festivals server tools repository contains server functions shared between m
 </p>
 <hr/>
 
-Between the server components of the `FestivalsApp` are some shared tasks they need to complete, like sending a heartbeat to the festivals-gateway, updating the server binary from github, sending responses to clients and more. To reduce duplicate code and simplify refactoring those functions are exposed via this tools repository. Some implementations are strongly coupled with ohter server components like ... TBC
+Between the server components of the `FestivalsApp` are some shared tasks they need to complete, like sending a heartbeat to the `festivals-gateway`, updating the server binary from github, sending responses to clients and more. To reduce duplicate code and simplify refactoring those functions are exposed via this tools repository. Some implementations are strongly coupled with ohter server components like ... TBC
 
 ## Development
 
