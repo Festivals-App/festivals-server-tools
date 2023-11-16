@@ -73,3 +73,9 @@ func RespondError(w http.ResponseWriter, code int, message string) {
 		log.Error().Err(err).Msg("failed to write response")
 	}
 }
+
+func UnauthorizedResponse(w http.ResponseWriter) {
+
+	w.Header().Set("WWW-Authenticate", `Basic realm="restricted", charset="UTF-8"`)
+	http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+}
