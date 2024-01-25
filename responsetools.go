@@ -53,8 +53,6 @@ func RespondJSON(w http.ResponseWriter, status int, payload interface{}) {
 
 func RespondError(w http.ResponseWriter, code int, message string) {
 
-	// http.Error(ww, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-
 	resultMap := map[string]interface{}{"error": message}
 	response, err := json.Marshal(resultMap)
 	if err != nil {
@@ -77,5 +75,5 @@ func RespondError(w http.ResponseWriter, code int, message string) {
 func UnauthorizedResponse(w http.ResponseWriter) {
 
 	w.Header().Set("WWW-Authenticate", `Basic realm="restricted", charset="UTF-8"`)
-	http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+	RespondError(w, http.StatusUnauthorized, http.StatusText(http.StatusUnauthorized))
 }
