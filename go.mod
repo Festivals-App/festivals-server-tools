@@ -5,7 +5,7 @@ go 1.21.3
 require (
 	github.com/go-chi/chi/v5 v5.0.11
 	github.com/google/go-github/v56 v56.0.0
-	github.com/google/uuid v1.5.0
+	github.com/google/uuid v1.6.0
 	github.com/rs/zerolog v1.31.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 )
