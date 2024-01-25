@@ -28,7 +28,6 @@ func IsEntitled(keys []string, endpoint func(http.ResponseWriter, *http.Request)
 			if contains(keys, key) {
 				endpoint(w, r)
 			} else {
-				http.Error(w, "Not Authorized", http.StatusUnauthorized)
 				RespondError(w, http.StatusUnauthorized, http.StatusText(http.StatusUnauthorized))
 				return
 			}
