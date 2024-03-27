@@ -58,7 +58,7 @@ func SendHeartbeat(client *http.Client, endpoint string, serviceKey string, beat
 
 	request.Header.Set("Content-Type", "application/json; charset=utf-8")
 	request.Header.Set("X-Request-ID", uuid.New().String())
-	request.Header.Set("Api-Key", serviceKey)
+	request.Header.Set("Service-Key", serviceKey)
 
 	resp, err := client.Do(request)
 	if err != nil {
