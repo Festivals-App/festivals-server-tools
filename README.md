@@ -44,7 +44,7 @@ The following channels are available for discussions, feedback, and support requ
 
 ## Licensing
 
-Copyright (c) 2023 Simon Gaus.
+Copyright (c) 2023-2024 Simon Gaus.
 
 Licensed under the **GNU Lesser General Public License v3.0** (the "License"); you may not use this file except in compliance with the License.
 
