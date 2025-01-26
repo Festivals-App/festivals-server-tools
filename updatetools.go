@@ -46,5 +46,5 @@ func LatestVersion(organisation string, repository string) (string, error) {
 		return *latestTag.Name, nil
 	}
 
-	return "", errors.New("Failed to fetch tags for repository '" + repository + "' in organisation '" + organisation + "' with error: " + err.Error())
+	return "", errors.New("Failed to fetch tags for repository '" + repository + "' in organisation '" + organisation + "'")
 }
