@@ -1,9 +1,9 @@
 module github.com/Festivals-App/festivals-server-tools
 
-go 1.21.3
+go 1.23.5
 
 require (
-	github.com/go-chi/chi/v5 v5.1.0
+	github.com/go-chi/chi/v5 v5.2.0
 	github.com/google/go-github/v56 v56.0.0
 	github.com/google/uuid v1.6.0
 	github.com/rs/zerolog v1.33.0
@@ -12,7 +12,7 @@ require (
 
 require (
 	github.com/google/go-querystring v1.1.0 // indirect
-	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
-	golang.org/x/sys v0.26.0 // indirect
+	golang.org/x/sys v0.29.0 // indirect
 )
