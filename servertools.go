@@ -36,6 +36,16 @@ func ContainerPathArgument() string {
 	return ""
 }
 
+// ExpandTilde expands a leading tilde (~) to the user's home directory who runs the binary.
+func ExpandTilde(path string) string {
+	if strings.HasPrefix(path, "~") {
+		if home, err := os.UserHomeDir(); err == nil {
+			return strings.Replace(path, "~", home, 1)
+		}
+	}
+	return path
+}
+
 func IsEntitled(keys []string, endpoint func(http.ResponseWriter, *http.Request)) http.HandlerFunc {
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
