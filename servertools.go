@@ -5,6 +5,7 @@ import (
 	"io/fs"
 	"net/http"
 	"os"
+	"strings"
 )
 
 // Checks if a file exists and isn't a directory.
@@ -15,6 +16,24 @@ func FileExists(filename string) bool {
 		return false
 	}
 	return !info.IsDir()
+}
+
+// Checks if the binary was executed with the --container argument and returns the specified value or an empty string.
+func ContainerPathArgument() string {
+
+	args := os.Args[1:]
+	for i := range args {
+		arg := args[i]
+		values := strings.Split(arg, "=") // input is trusted
+		if len(values) == 2 {
+			cmd := values[0]
+			value := values[1]
+			if cmd == "--container" {
+				return value
+			}
+		}
+	}
+	return ""
 }
 
 func IsEntitled(keys []string, endpoint func(http.ResponseWriter, *http.Request)) http.HandlerFunc {
