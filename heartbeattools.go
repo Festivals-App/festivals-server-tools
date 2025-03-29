@@ -3,9 +3,12 @@ package servertools
 import (
 	"bytes"
 	"crypto/tls"
+	"crypto/x509"
 	"encoding/json"
+	"errors"
 	"net"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/google/uuid"
@@ -18,17 +21,27 @@ type Heartbeat struct {
 	Available bool   `json:"available"`
 }
 
-func HeartbeatClient(clientCert string, clientKey string) (*http.Client, error) {
+func HeartbeatClient(clientCert string, clientKey string, serverCA string) (*http.Client, error) {
 
 	cert, err := tls.LoadX509KeyPair(clientCert, clientKey)
 	if err != nil {
 		return nil, err
 	}
 
+	certContent, err := os.ReadFile(serverCA)
+	if err != nil {
+		return nil, err
+	}
+	rootCertPool := x509.NewCertPool()
+	if ok := rootCertPool.AppendCertsFromPEM(certContent); !ok {
+		return nil, errors.New("failed to append certificate to certificate pool")
+	}
+
 	client := &http.Client{
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
 				Certificates: []tls.Certificate{cert},
+				ClientCAs:    rootCertPool,
 			},
 			Dial: (&net.Dialer{
 				Timeout:   30 * time.Second,
