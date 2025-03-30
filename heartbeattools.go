@@ -41,7 +41,7 @@ func HeartbeatClient(clientCert string, clientKey string, serverCA string) (*htt
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
 				Certificates: []tls.Certificate{cert},
-				ClientCAs:    rootCertPool,
+				RootCAs:      rootCertPool,
 			},
 			Dial: (&net.Dialer{
 				Timeout:   30 * time.Second,
