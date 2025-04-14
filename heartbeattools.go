@@ -14,6 +14,17 @@ import (
 	"github.com/google/uuid"
 )
 
+type Service string
+
+const (
+	Gateway    Service = "festivals-gateway"
+	Identity   Service = "festivals-identity-server"
+	Server     Service = "festivals-server"
+	Fileserver Service = "festivals-fileserver"
+	Database   Service = "festivals-database-node"
+	Website    Service = "festivals-website-node"
+)
+
 type Heartbeat struct {
 	Service   string `json:"service"`
 	Host      string `json:"host"`
@@ -57,7 +68,7 @@ func HeartbeatClient(clientCert string, clientKey string, serverCA string) (*htt
 	return client, nil
 }
 
-func SendHeartbeat(client *http.Client, endpoint string, serviceKey string, beat *Heartbeat) error {
+func SendHeartbeat(client *http.Client, endpoint string, serviceKey Service, beat *Heartbeat) error {
 
 	heartbeatwave, err := json.Marshal(beat)
 	if err != nil {
@@ -71,7 +82,7 @@ func SendHeartbeat(client *http.Client, endpoint string, serviceKey string, beat
 
 	request.Header.Set("Content-Type", "application/json; charset=utf-8")
 	request.Header.Set("X-Request-ID", uuid.New().String())
-	request.Header.Set("Service-Key", serviceKey)
+	request.Header.Set("Service-Key", string(serviceKey))
 
 	resp, err := client.Do(request)
 	if err != nil {
