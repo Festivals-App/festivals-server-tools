@@ -62,8 +62,7 @@ Each log entry is a single-line JSON object, with the following common structure
   "level": "trace|debug|error|fatal",
   "time": "2025-04-15T12:34:56Z",
   "message": "Log message here",
-  "request_id": "uuid-optional",
-  ...
+  "request_id": "uuid-optional"
 }
 ```
 
