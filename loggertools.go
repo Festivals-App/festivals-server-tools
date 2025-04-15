@@ -42,7 +42,7 @@ func Middleware(traceLogger *zerolog.Logger) func(next http.Handler) http.Handle
 				if status < 300 {
 					// log successfull requests at trace lvl to trace logger
 					tlog.Trace().
-						Fields(map[string]interface{}{
+						Fields(map[string]any{
 							"url":        r.Host + r.URL.Path,
 							"method":     r.Method,
 							"status":     status,
@@ -53,7 +53,7 @@ func Middleware(traceLogger *zerolog.Logger) func(next http.Handler) http.Handle
 				} else {
 					// log failed requests at debug lvl to global logger
 					log.Debug().
-						Fields(map[string]interface{}{
+						Fields(map[string]any{
 							"request_id": requestID,
 							"url":        r.Host + r.URL.Path,
 							"method":     r.Method,
