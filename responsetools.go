@@ -3,7 +3,10 @@ package servertools
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
+	"os"
+	"strconv"
 
 	"github.com/rs/zerolog/log"
 )
@@ -69,6 +72,36 @@ func RespondError(w http.ResponseWriter, code int, message string) {
 	_, err = w.Write(response)
 	if err != nil {
 		log.Error().Err(err).Msg("failed to write response")
+	}
+}
+
+// respondFile makes the response with payload as json format
+func RespondFile(w http.ResponseWriter, file *os.File) {
+
+	// calculate content size
+	fileInfo, err := file.Stat()
+	if err != nil || fileInfo == nil {
+		log.Error().Err(err).Msg("Failed to read file stats for file: '" + file.Name() + "'")
+		RespondError(w, http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError))
+		return
+	}
+
+	size := fileInfo.Size()
+
+	// calculate content type dynamically
+	contentType, err := GetFileContentType(file)
+	if err != nil {
+		log.Error().Err(err).Msg("Failed to retrieve content type for file: '" + file.Name() + "'")
+		RespondError(w, http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError))
+		return
+	}
+
+	w.Header().Set("Content-Length", strconv.FormatInt(size, 10))
+	w.Header().Set("Content-Type", contentType)
+
+	_, err = io.Copy(w, file)
+	if err != nil {
+		log.Error().Err(err).Msg("Failed to send write file to response")
 	}
 }
 
