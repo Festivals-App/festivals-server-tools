@@ -25,6 +25,30 @@ const (
 	Website    Service = "festivals-website-node"
 )
 
+func ValidService(s string) (service Service, err error) {
+
+	switch s {
+	case Gateway.Value():
+		return Service(s), nil
+	case Identity.Value():
+		return Service(s), nil
+	case Server.Value():
+		return Service(s), nil
+	case Fileserver.Value():
+		return Service(s), nil
+	case Database.Value():
+		return Service(s), nil
+	case Website.Value():
+		return Service(s), nil
+	default:
+		return "", errors.New("Failed to create service from sting: '" + s + "'.")
+	}
+}
+
+func (service Service) Value() string {
+	return string(service)
+}
+
 type Heartbeat struct {
 	Service   string `json:"service"`
 	Host      string `json:"host"`
