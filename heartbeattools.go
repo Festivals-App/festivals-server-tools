@@ -92,7 +92,7 @@ func HeartbeatClient(clientCert string, clientKey string, serverCA string) (*htt
 	return client, nil
 }
 
-func SendHeartbeat(client *http.Client, endpoint string, serviceKey Service, beat *Heartbeat) error {
+func SendHeartbeat(client *http.Client, endpoint string, serviceKey string, beat *Heartbeat) error {
 
 	heartbeatwave, err := json.Marshal(beat)
 	if err != nil {
@@ -106,7 +106,7 @@ func SendHeartbeat(client *http.Client, endpoint string, serviceKey Service, bea
 
 	request.Header.Set("Content-Type", "application/json; charset=utf-8")
 	request.Header.Set("X-Request-ID", uuid.New().String())
-	request.Header.Set("Service-Key", string(serviceKey))
+	request.Header.Set("Service-Key", serviceKey)
 
 	resp, err := client.Do(request)
 	if err != nil {
