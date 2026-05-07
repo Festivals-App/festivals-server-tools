@@ -5,7 +5,7 @@ import (
 	"errors"
 	"os/exec"
 
-	"github.com/google/go-github/v80/github"
+	"github.com/google/go-github/v85/github"
 )
 
 func RunUpdate(currentVersion string, organisation string, repository string, updateScriptPath string) (string, error) {
