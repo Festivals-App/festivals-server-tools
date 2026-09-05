@@ -34,7 +34,7 @@ func RunUpdate(currentVersion string, organisation string, repository string, up
 
 func LatestVersion(organisation string, repository string) (string, error) {
 
-	client, err := github.NewClient(nil)
+	client, err := github.NewClient()
 	if err != nil {
 		return "", errors.New("Failed to create github client: " + err.Error())
 	}
