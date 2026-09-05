@@ -5,7 +5,7 @@ import (
 	"errors"
 	"os/exec"
 
-	"github.com/google/go-github/v85/github"
+	"github.com/google/go-github/v91/github"
 )
 
 func RunUpdate(currentVersion string, organisation string, repository string, updateScriptPath string) (string, error) {
@@ -34,7 +34,10 @@ func RunUpdate(currentVersion string, organisation string, repository string, up
 
 func LatestVersion(organisation string, repository string) (string, error) {
 
-	client := github.NewClient(nil)
+	client, err := github.NewClient(nil)
+	if err != nil {
+		return "", errors.New("Failed to create github client: " + err.Error())
+	}
 
 	tags, _, err := client.Repositories.ListTags(context.Background(), organisation, repository, nil)
 	if err != nil {
